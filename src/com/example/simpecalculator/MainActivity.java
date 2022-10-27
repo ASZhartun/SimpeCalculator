@@ -31,6 +31,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.clear:
 			input.setText("0");
+			sb.setLength(0);
 			break;
 		case R.id.equal:
 			input.setText(calculate(input.getText().toString()));
