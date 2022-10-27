@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity implements OnClickListener {
 	
-	String PATTERN_EXPRESSION = "([0-9]+[.]{0,1}[0-9]+)([*\\/+-])([0-9]+[.]{0,1}[0-9]+)";
+	String PATTERN_EXPRESSION = "([0-9]*[.]{0,1}[0-9]*)([*\\/+-])([0-9]*[.]{0,1}[0-9]*)";
 	
 	TextView input;
 	StringBuilder sb = new StringBuilder();
