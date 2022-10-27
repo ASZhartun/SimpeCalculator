@@ -12,9 +12,9 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 public class MainActivity extends Activity implements OnClickListener {
-	
-	String PATTERN_EXPRESSION = "([0-9]*[.]{0,1}[0-9]*)([*\\/+-])([0-9]*[.]{0,1}[0-9]*)";
-	
+
+	String PATTERN_EXPRESSION = "([-]{0,1}[0-9]*[.]{0,1}[0-9]*)([*\\/+-])([0-9]*[.]{0,1}[0-9]*)";
+
 	TextView input;
 	StringBuilder sb = new StringBuilder();
 
@@ -23,6 +23,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		input = (TextView) findViewById(R.id.inputField);
+		sb.append("0");
 	}
 
 	@Override
@@ -32,10 +33,12 @@ public class MainActivity extends Activity implements OnClickListener {
 		case R.id.clear:
 			input.setText("0");
 			sb.setLength(0);
+			sb.append("0");
 			break;
 		case R.id.equal:
 			input.setText(calculate(input.getText().toString()));
 			sb.setLength(0);
+			sb.append(input.getText().toString());
 			break;
 		default:
 			TextView temp = (TextView) v;
@@ -43,7 +46,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			input.setText(sb.toString());
 		}
 	}
-	
+
 	public String calculate(String expression) {
 		Pattern pattern = Pattern.compile(PATTERN_EXPRESSION);
 		Matcher matcher = pattern.matcher(expression);
@@ -52,33 +55,33 @@ public class MainActivity extends Activity implements OnClickListener {
 			Double arg1 = Double.parseDouble(temp);
 			String operation = matcher.group(2);
 			temp = matcher.group(3);
-			Double arg2 =Double.parseDouble(temp);
+			Double arg2 = Double.parseDouble(temp);
 			return getResult(arg1, arg2, operation);
 		} else {
 			return "err";
 		}
 	}
-	
+
 	public void assignSymbol(String symbol) {
 		sb.append(symbol);
 	}
-	
+
 	public String getResult(Double arg1, Double arg2, String operation) {
 		if (operation.equalsIgnoreCase("-")) {
-			return String.valueOf(arg1-arg2);
+			return String.valueOf(arg1 - arg2);
 		} else if (operation.equalsIgnoreCase("+")) {
-			return String.valueOf(arg1+arg2);
+			return String.valueOf(arg1 + arg2);
 		} else if (operation.equalsIgnoreCase("/")) {
 			String result = "err";
 			try {
-				result = String.valueOf(arg1/arg2);
+				result = String.valueOf(arg1 / arg2);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			return result;
 		} else if (operation.equalsIgnoreCase("*")) {
-			return String.valueOf(arg1*arg2);
+			return String.valueOf(arg1 * arg2);
 		}
 		return "err";
 	}
